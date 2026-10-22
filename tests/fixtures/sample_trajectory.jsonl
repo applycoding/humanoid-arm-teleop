@@ -1,0 +1,2 @@
+{"schema_version": 1, "joint_names": ["joint_1","joint_2","joint_3","joint_4","joint_5","joint_6"], "urdf_sha256": "placeholder", "tick_dt": 0.02}
+{"t": 0.02, "joint_position": [0.0, 0.6, 1.4, 0.0, 0.9, 0.0], "safety_mode": "HOLD"}
