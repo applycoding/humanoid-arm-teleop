@@ -1,0 +1,56 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: pytest -q
+
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: pip install -r requirements.txt
+      - run: npm install
+      - run: npx playwright install --with-deps chromium
+      - run: python -m uvicorn backend.main:app --host 0.0.0.0 --port 8000 &
+      - name: Wait for server
+        run: |
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:8000/ && exit 0
+            sleep 1
+          done
+          exit 1
+      - run: npx playwright test tests/e2e/smoke.spec.ts
+
+  docker-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t arm-teleop .
+      - run: docker run -d -p 8000:8000 --name arm-teleop-test arm-teleop
+      - name: Wait for container
+        run: |
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:8000/ && exit 0
+            sleep 1
+          done
+          exit 1
+      - run: curl -f http://localhost:8000/arm/arm.urdf
+      - run: docker stop arm-teleop-test

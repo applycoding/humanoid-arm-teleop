@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Humanoid Arm Teleop</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "/vendor/three/three.module.js",
+      "three/examples/jsm/": "/vendor/three/examples/jsm/",
+      "three/addons/": "/vendor/three/examples/jsm/",
+      "urdf-loader": "/vendor/urdf-loader/URDFLoader.js"
+    }
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Humanoid Arm Teleop</h1>
+    <p class="banner">Simulation demo only. Not connected to real hardware.</p>
+  </header>
+  <main>
+    <div id="viewport"></div>
+    <aside id="panel">
+      <section id="control-status">
+        <button id="btn-request-control" type="button">Request control</button>
+        <p id="owner-label">Observer</p>
+        <p>Mode: <span id="safety-mode">HOLD</span></p>
+        <p>IK: <span id="ik-status">-</span></p>
+      </section>
+      <section>
+        <h2>Controls</h2>
+        <ul>
+          <li>Hold Shift: deadman</li>
+          <li>Arrow keys / WASD + Q/E: move target</li>
+          <li>Space: e-stop</li>
+          <li>R: reset after e-stop</li>
+          <li>Drag gizmo: EE target</li>
+          <li>Gamepad 0 + sticks: teleop</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Record</h2>
+        <input id="record-name" value="traj_01" />
+        <button id="btn-record-start" type="button">Start</button>
+        <button id="btn-record-stop" type="button">Stop</button>
+        <button id="btn-replay" type="button">Replay</button>
+      </section>
+      <section>
+        <h2>Joints</h2>
+        <pre id="joint-telemetry"></pre>
+      </section>
+    </aside>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "name": "humanoid-arm-teleop",
+  "private": true,
+  "devDependencies": {
+    "@playwright/test": "1.51.0"
+  }
+}

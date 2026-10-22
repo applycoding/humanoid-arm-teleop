@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+recordings/*.jsonl
+!recordings/.gitkeep
+.uvicorn.pid
+playwright-report/
+test-results/

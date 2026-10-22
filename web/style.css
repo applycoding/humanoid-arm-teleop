@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #0f0f1a;
+  color: #e8e8f0;
+}
+
+header {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #333;
+}
+
+.banner {
+  color: #f0c040;
+  font-weight: 600;
+}
+
+main {
+  display: flex;
+  height: calc(100vh - 80px);
+}
+
+#viewport {
+  flex: 1;
+  min-width: 0;
+}
+
+#panel {
+  width: 280px;
+  padding: 1rem;
+  overflow-y: auto;
+  border-left: 1px solid #333;
+  font-size: 0.9rem;
+}
+
+button {
+  margin: 0.25rem 0.25rem 0.25rem 0;
+}
+
+pre {
+  font-size: 0.75rem;
+  white-space: pre-wrap;
+}
