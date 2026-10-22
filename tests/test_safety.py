@@ -7,7 +7,7 @@ import numpy as np
 import pytest
 
 from backend import config
-from backend.safety import SafetyMode
+from backend.safety import SafetyMode, in_envelope
 
 
 def _fk_ee(loop, q):
@@ -100,4 +100,6 @@ def test_committed_invariant_after_reject(control_loop, registry) -> None:
     for _ in range(5):
         loop.tick()
     fk = loop.kin.forward(loop.q_committed)
-    assert np.linalg.norm(fk.position - loop.kin.forward(q0).position) < 0.5 or True
+    # An unreachable target must not drag the arm far or out of the safe envelope.
+    assert np.linalg.norm(fk.position - loop.kin.forward(q0).position) < 0.5
+    assert in_envelope(fk.position)
